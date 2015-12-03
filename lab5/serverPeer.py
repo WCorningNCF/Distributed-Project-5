@@ -94,8 +94,9 @@ class Server(orb.Peer):
     # Public methods
 
     def destroy(self):
-        orb.Peer.destroy(self)
+        # Destroy the lock first to allow the token to be passed if we have it
         self.distributed_lock.destroy()
+        orb.Peer.destroy(self)
         self.peer_list.destroy()
 
     def __getattr__(self, attr):
