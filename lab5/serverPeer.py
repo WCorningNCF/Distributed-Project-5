@@ -132,10 +132,12 @@ class Server(orb.Peer):
         self.drwlock.write_acquire()
         self.db.write(fortune)
 
-        peers = self.peer_list.get_peers()
+        peers = self.peer_list.get_peers().values()
         for peer in peers:
             peer.write_local(fortune)
         self.drwlock.write_release()
+
+        return(True)
 
     def write_local(self, fortune):
         """Write a fortune to the database.
@@ -150,6 +152,8 @@ class Server(orb.Peer):
             self.db.write(fortune)
         finally:
             self.drwlock.write_release_local()
+
+        return(True)
 
     def register_peer(self, pid, paddr):
         """Register a server peer in this server's peer list."""
