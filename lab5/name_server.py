@@ -110,7 +110,7 @@ class NameServer(object):
 
     def require_any(self, obj_type):
         all_matching_peers = self.get_peers(obj_type)
-        return all_matching_peers[self.rand.randint(0,len(p))][1] # Return only the address
+        return all_matching_peers[self.rand.randint(0,len(all_matching_peers))][1] # Return only the address
 
     def require_object(self, server_type, server_id):
         server_type_list = self.get_peers(server_type)
