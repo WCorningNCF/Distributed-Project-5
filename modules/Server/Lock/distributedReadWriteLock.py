@@ -22,7 +22,7 @@ class DistributedReadWriteLock(readWriteLock.ReadWriteLock):
         # Create a distributed lock
         self.distributed_lock = distributed_lock
         #
-        # Your code here.
+        # Your code here. (???)
         #
         pass
 
@@ -35,11 +35,8 @@ class DistributedReadWriteLock(readWriteLock.ReadWriteLock):
         to the rest of the peers.
 
         """
-
-        #
-        # Your code here.
-        #
-        pass
+        self.distributed_lock.acquire()
+        self.write_acquire_local()
 
     def write_release(self):
         """Release the rights to write into the database.
@@ -49,10 +46,8 @@ class DistributedReadWriteLock(readWriteLock.ReadWriteLock):
 
         """
 
-        #
-        # Your code here.
-        #
-        pass
+        self.write_release_local()
+        self.distributed_lock.release()
 
     def write_acquire_local(self):
         readWriteLock.ReadWriteLock.write_acquire(self)

@@ -14,4 +14,4 @@ object_StudentId) so as to avoid conflicts.
 
 """
 
-object_type = "ncf.ds.lab4.w&d"
+object_type = "ncf.ds.lab5.s&w"
