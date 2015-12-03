@@ -16,6 +16,8 @@ from Common.orb import Stub
 from Common.orb import ProtocolError
 from Common.readWriteLock import ReadWriteLock
 
+import random
+
 # -----------------------------------------------------------------------------
 # Initialize and read the command line arguments
 # -----------------------------------------------------------------------------
@@ -52,6 +54,8 @@ class NameServer(object):
         self.peers = dict()         # Contains a set of peers for each object type
         self.responses = dict()
         self.next_id = 0
+        self.rand = random.Random()
+        self.rand.seed()
 
     # Public methods
 
@@ -103,6 +107,10 @@ class NameServer(object):
 
     def get_peers(self, obj_type):
         return list(self._get_group(obj_type))
+
+    def require_any(self, obj_type):
+        all_matching_peers = self.get_peers(obj_type)
+        return all_matching_peers[self.rand.randint(0,len(p))][1] # Return only the address
 
     def require_object(self, server_type, server_id):
         server_type_list = self.get_peers(server_type)
